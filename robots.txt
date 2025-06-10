@@ -1,5 +1,6 @@
 # Allow all bots to crawl public pages of the portfolio
 User-agent: *
+Allow: /sitemap.xml
 Allow: /projects/
 Allow: /about/
 Allow: /contact/
@@ -12,4 +13,4 @@ Disallow: /settings/
 Disallow: /private/
 
 # Sitemap for search engines to better navigate the site
-Sitemap: https://yourdevfolio.com/sitemap.xml
+Sitemap: https://mohammadashmir786.github.io/Devfolio/sitemap.xml
