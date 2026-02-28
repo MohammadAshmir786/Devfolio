@@ -2,50 +2,91 @@
 import React, { useState } from 'react';
 import ProjectCard, { ProjectProps } from './ProjectCard';
 import { Button } from '@/components/ui/button';
+import PricePulseAi_preview from '../assets/images/PricePulseAI_preview.png';
+import SyncHomes_preview from '../assets/images/SyncHomes_preview.png';
 
 const Projects: React.FC = () => {
   const [filter, setFilter] = useState<'all' | 'mern' | 'ai'>('all');
   
   const projects: ProjectProps[] = [
     {
-      title: "Intelligent E-Commerce Platform",
+      title: "PricePulseAI - Intelligent E-Commerce Platform",
       description: "An e-commerce platform with AI-powered recommendation engine and responsive MERN stack architecture.",
-      image: "https://source.unsplash.com/random/600x400/?ecommerce",
-      githubUrl: "#",
-      liveUrl: "#",
+      image: PricePulseAi_preview,
+      githubUrl: "https://github.com/MohammadAshmir786/PricePulseAI",
+      liveUrl: "https://pricepulse-ai.vercel.app/",
       technologies: [
         { name: "MongoDB", type: "mongodb" },
         { name: "Express", type: "express" },
         { name: "React", type: "react" },
         { name: "Node.js", type: "node" },
-        { name: "TensorFlow", type: "ai" }
+        { name: "Tailwind CSS", type: "tailwind" },
+        { name: "Three.js", type: "animations" },
+        { name: "TensorFlow", type: "ai" },
+        { name: "Flask", type: "flask" },
       ]
     },
     {
-      title: "Real-time Data Visualization Dashboard",
-      description: "A real-time dashboard for monitoring and visualizing data streams with machine learning insights.",
-      image: "https://source.unsplash.com/random/600x400/?dashboard",
-      githubUrl: "#",
-      liveUrl: "#",
+      title: "SyncHomes - Full-Stack Landing Page & Admin Dashboard",
+      description: "A full-stack MERN project for the SyncHomes marketing site and admin dashboard, with React + TypeScript frontend and Node.js + Express backend, featuring JWT authentication and responsive design.",
+      image: SyncHomes_preview, // replace with your imported preview image
+      githubUrl: "https://github.com/MohammadAshmir786/SyncHomes_Landing_Page",
+      liveUrl: "https://sync-homes.vercel.app/",
       technologies: [
-        { name: "MongoDB", type: "mongodb" },
-        { name: "Express", type: "express" },
         { name: "React", type: "react" },
-        { name: "D3.js", type: "other" },
-        { name: "Socket.io", type: "other" }
+        { name: "TypeScript", type: "typescript" },
+        { name: "Tailwind CSS", type: "tailwind" },
+        { name: "Node.js", type: "node" },
+        { name: "Express", type: "express" },
+        { name: "MongoDB", type: "mongodb" },
+        { name: "JWT Authentication", type: "jwt" },
+        { name: "Recharts", type: "other" }
       ]
     },
+    // {
+    //   title: "Real-time Data Visualization Dashboard",
+    //   description: "A real-time dashboard for monitoring and visualizing data streams with machine learning insights.",
+    //   image: "https://source.unsplash.com/random/600x400/?dashboard",
+    //   githubUrl: "#",
+    //   liveUrl: "#",
+    //   technologies: [
+    //     { name: "MongoDB", type: "mongodb" },
+    //     { name: "Express", type: "express" },
+    //     { name: "React", type: "react" },
+    //     { name: "D3.js", type: "other" },
+    //     { name: "Socket.io", type: "other" }
+    //   ]
+    // },
+
+    // {
+    //   title: "Real-time Data Visualization Dashboard",
+    //   description: "A real-time dashboard for monitoring and visualizing data streams with machine learning insights.",
+    //   image: "https://source.unsplash.com/random/600x400/?dashboard",
+    //   githubUrl: "#",
+    //   liveUrl: "#",
+    //   technologies: [
+    //     { name: "MongoDB", type: "mongodb" },
+    //     { name: "Express", type: "express" },
+    //     { name: "React", type: "react" },
+    //     { name: "D3.js", type: "other" },
+    //     { name: "Socket.io", type: "other" }
+    //   ]
+    // },
     {
       title: "AI Image Recognition App",
-      description: "A web application that uses computer vision to identify and analyze objects in uploaded images.",
+      description: "A web application that uses computer vision to identify and analyze objects  through a live webcam feed.",
       image: "https://source.unsplash.com/random/600x400/?ai",
-      githubUrl: "#",
+      githubUrl: "https://github.com/MohammadAshmir786/Object_Detection_with_YOLO",
       liveUrl: "#",
       technologies: [
         { name: "React", type: "react" },
         { name: "Node.js", type: "node" },
         { name: "TensorFlow", type: "ai" },
-        { name: "Computer Vision", type: "ml" }
+        { name: "Computer Vision", type: "ml" },
+        { name: "Bootstrap", type: "bootstrap" },
+        { name: "OpenCV", type: "ml" },
+        { name: "YOLO", type: "ml" },
+        { name: "Pillow", type: "ml" }
       ]
     },
     {

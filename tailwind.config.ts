@@ -55,12 +55,59 @@ export default {
 				},
 				// Portfolio theme colors
 				tech: {
-					mongodb: "#4DB33D",
-					express: "#000000",
-					react: "#61DAFB",
-					node: "#339933",
-					ai: "#FF6F61",
-					ml: "#6461FB"
+						// Core Languages
+						javascript: "#F7DF1E",
+						typescript: "#3178C6",
+						html5: "#E34F26",
+						css3: "#1572B6",
+						python: "#3776AB",
+						sql: "#F29111",
+
+						// MERN Stack
+						react: "#61DAFB",
+						node: "#339933",
+						express: "#afafaf",
+						mongodb: "#4DB33D",
+
+						// Frontend Frameworks & Styling
+						bootstrap: "#7952B3",
+						tailwind: "#38B2AC",
+						responsive: "#FFB300", // for responsive design
+						ajax: "#FF7043",       // for AJAX interactions
+						animations: "#FF4081", // for animations
+						flask: "#", 
+						django: "#092E20", 
+
+						// Backend & APIs
+						restapi: "#FF7043",
+						jwt: "#F7DF1E",
+						passport: "#3B5998",
+						mvc: "#9C27B0",
+
+						// Databases
+						mysql: "#4479A1",
+						firebase: "#FFCA28",
+
+						// AI & ML
+						ai: "#FF6F61",
+						ml: "#6461FB",
+
+						// Tools & Platforms
+						git: "#F05032",
+						github: "#181717",
+						postman: "#FF6C37",
+						swagger: "#85EA2D",
+						vscode: "#007ACC",
+						netlify: "#00C7B7",
+						vercel: "#000000",
+						heroku: "#6762A6",
+						railway: "#191919",
+
+						// Workflow & Testing
+						agile: "#FF9800",
+						cicd: "#2196F3",
+						jest: "#C21325",
+						apiDoc: "#4DB6AC"
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',

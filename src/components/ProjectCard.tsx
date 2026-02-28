@@ -5,6 +5,7 @@ import { ExternalLink } from 'lucide-react';
 import { FiGithub } from 'react-icons/fi';
 import { cn } from '@/lib/utils';
 import SkillBadge from './SkillBadge';
+import { SkillType } from './SkillType';
 
 export interface ProjectProps {
   title: string;
@@ -14,7 +15,7 @@ export interface ProjectProps {
   liveUrl?: string;
   technologies: {
     name: string;
-    type: 'mongodb' | 'express' | 'react' | 'node' | 'ai' | 'ml' | 'other';
+    type: SkillType;
   }[];
   className?: string;
 }
@@ -71,6 +72,7 @@ const ProjectCard: React.FC<ProjectProps> = ({
             rel="noopener noreferrer"
             className="text-foreground/80 hover:text-foreground transition-colors"
             aria-label="View source code on GitHub"
+            title='Github repo'
           >
             <FiGithub className="w-5 h-5" />
           </a>
@@ -81,6 +83,7 @@ const ProjectCard: React.FC<ProjectProps> = ({
             href={liveUrl} 
             target="_blank" 
             rel="noopener noreferrer"
+            title='live preview'
             className="text-foreground/80 hover:text-foreground transition-colors"
             aria-label="View live project"
           >
