@@ -1,0 +1,33 @@
+.sparkle {
+  z-index: 9999;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: var(--size, 8px);
+  height: var(--size, 8px);
+  background: radial-gradient(
+    circle,
+    #ffffff 0%,
+    #ffffff 60%,
+    transparent 100%
+  );
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0.45);
+  animation: sparkle-burst var(--duration, 850ms) ease-out forwards;
+}
+
+@keyframes sparkle-burst {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.45);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy)))
+      scale(1.1);
+  }
+}

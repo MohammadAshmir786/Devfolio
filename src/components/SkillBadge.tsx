@@ -50,6 +50,8 @@ const SkillBadge: React.FC<SkillBadgeProps> = ({ name, type, className }) => {
         return 'bg-tech-flask/10 text-tech-flask border-tech-flask/20';
       case 'django':
         return 'bg-tech-django/10 text-green-500 border-green-500/20';
+      case 'next':
+        return 'bg-tech-next/10 text-white border-tech-next/20';
       
 
       // ========================
@@ -135,7 +137,7 @@ const SkillBadge: React.FC<SkillBadgeProps> = ({ name, type, className }) => {
   return (
     <div
       className={cn(
-        'tech-badge inline-flex items-center justify-center border px-3 py-1 rounded-md text-sm font-medium',
+        'tech-badge inline-flex items-center justify-center border px-3 py-1 rounded-md text-[12px] sm:text-sm font-medium',
         'animate-float hover:scale-105 transition-transform',
         getTypeStyles(),
         className

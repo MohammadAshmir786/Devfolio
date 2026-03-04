@@ -1,5 +1,6 @@
 
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
 	darkMode: ["class"],
@@ -13,8 +14,19 @@ export default {
 	theme: {
 		container: {
 			center: true,
-			padding: '2rem',
+			padding: {
+				DEFAULT: "0.5rem",
+				sm: "0.5rem",
+				md: "2rem",   
+				lg: "3rem",
+				xl: "4rem",
+				"2xl": "5rem",
+			},
 			screens: {
+				sm: "640px",
+				md: "768px",
+				lg: "1024px",
+				xl: "1280px",
 				'2xl': '1400px'
 			}
 		},
@@ -72,10 +84,10 @@ export default {
 						// Frontend Frameworks & Styling
 						bootstrap: "#7952B3",
 						tailwind: "#38B2AC",
-						responsive: "#FFB300", // for responsive design
-						ajax: "#FF7043",       // for AJAX interactions
-						animations: "#FF4081", // for animations
-						flask: "#", 
+						responsive: "#FFB300", 
+						ajax: "#FF7043",      
+						animations: "#FF4081", 
+						next: "#f3f4f6", 
 						django: "#092E20", 
 
 						// Backend & APIs
@@ -186,8 +198,11 @@ export default {
 				'card-gradient': 'linear-gradient(90deg, hsla(277, 75%, 84%, 1) 0%, hsla(297, 50%, 51%, 1) 100%)',
 				'ai-gradient': 'linear-gradient(90deg, hsla(39, 100%, 77%, 1) 0%, hsla(22, 90%, 57%, 1) 100%)',
 				'ml-gradient': 'linear-gradient(90deg, hsla(59, 86%, 68%, 1) 0%, hsla(134, 36%, 53%, 1) 100%)'
-			}
+			},
+			transitionDuration: {
+        '2000': '2000ms',
+      }
 		}
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [tailwindcssAnimate],
 } satisfies Config;

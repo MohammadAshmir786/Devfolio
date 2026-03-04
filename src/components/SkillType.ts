@@ -16,6 +16,7 @@ export type SkillType =
     | 'tailwind'
     | 'flask'
     | 'django'
+    | 'next'
     // Responsive Design & UI/UX
     | 'responsive'
     | 'ajax'
