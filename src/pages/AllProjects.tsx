@@ -1,10 +1,12 @@
 import React from "react";
 import ParticleBackground from "@/components/effects/ParticleBackground";
-import { projects } from "../components/ProjectList";
-import ProjectCard from "../components/ProjectCard";
+import { projects } from "@/components/ProjectList";
+import ProjectCard from "@/components/ProjectCard";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
+import { motion } from "framer-motion";
+import { motionConfig } from "@/lib/motion";
 
 type FilterType = "all" | "mern" | "ai" | "next";
 
@@ -156,7 +158,13 @@ const AllProjects = () => {
       <ParticleBackground />
       {/* Heading */}
       <div className="container relative z-10 h-full pt-6 md:pt-10 lg:pt-12 flex flex-col">
-        <div className="shrink-0 text-center mb-5 lg:mb-8 xl:mb-10">
+        <motion.div 
+          className="shrink-0 text-center mb-5 lg:mb-8 xl:mb-10"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={motionConfig.viewport.section}
+          transition={{ duration: motionConfig.sectionDuration }}  
+        >
           <h1 className="text-xl md:text-4xl font-bold mb-3 lg:mb-6">
             All{" "}
             <span className="relative inline-block before:absolute before:-inset-1 before:block before:-skew-y-3 before:bg-primary hover:before:skew-y-6 animate-float before:duration-[2000ms] hover:before:scale-105 before:transition-all">
@@ -170,9 +178,18 @@ const AllProjects = () => {
             to AI-powered tools, discover the breadth of my work and the
             technologies I've mastered.
           </p>
-        </div>
+        </motion.div>
         {/* Static Filter for not 4k screens */}
-        <div className="flex justify-center mb-5 xl:mb-10 2xl:hidden">
+        <motion.div
+          className="flex justify-center mb-5 xl:mb-10 2xl:hidden"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={motionConfig.viewport.section}
+          transition={{
+            duration: motionConfig.sectionDuration,
+            delay: motionConfig.childDelay,
+          }}
+        >
           <div className="grid grid-cols-2 gap-2 sm:inline-flex rounded-md shadow-sm p-1 bg-background/50 backdrop-blur-sm border border-white/10">
             {filterOptions.map((opt) => (
               <Button
@@ -184,7 +201,7 @@ const AllProjects = () => {
               </Button>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         <div className="flex-1 min-h-0 relative">
           {/* Wheel Filter */}
@@ -213,7 +230,17 @@ const AllProjects = () => {
               onPointerUp={handleWheelPointerUp}
               onPointerCancel={handleWheelPointerUp}
             >
-              <div className="relative h-[520px] w-72 origin-center">
+              <motion.div 
+                className="relative h-[520px] w-72 origin-center"
+                initial={{ x: -400, y: 400, opacity: 0, rotate: 90}}
+                whileInView={{ x: 0, y: 0, opacity: 1, rotate: 0 }}
+                animate={{ x: 0, y: 0, opacity: 1, rotate: 0 }}
+                viewport={motionConfig.viewport.section}
+                transition={{
+                  duration: motionConfig.sectionDuration,
+                  delay: motionConfig.childDelay,
+                }}
+              >
                 {filterOptions.map((option, index) => {
                   const radius = 160;
                   const itemGap = 70;
@@ -256,7 +283,7 @@ const AllProjects = () => {
                     </button>
                   );
                 })}
-              </div>
+              </motion.div>
             </div>
           </div>
 
@@ -265,25 +292,41 @@ const AllProjects = () => {
             ref={projectGridRef}
             className="h-full min-h-0 overflow-y-auto p-5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
           >
-            <div
-              className={"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"}
-            >
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredProjects.length > 0 ? (
-                filteredProjects.map((project, index) => (
-                  <ProjectCard
+                filteredProjects.slice(0, 6).map((project, index) => (
+                  <motion.div
                     key={index}
-                    title={project.title}
-                    description={project.description}
-                    image={project.image}
-                    githubUrl={project.githubUrl}
-                    liveUrl={project.liveUrl}
-                    technologies={project.technologies}
-                  />
+                    className="h-full"
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={motionConfig.viewport.card}
+                    transition={{
+                      duration: motionConfig.sectionDuration,
+                      delay: index * motionConfig.cardStagger,
+                    }}
+                  >
+                    <ProjectCard
+                      title={project.title}
+                      description={project.description}
+                      image={project.image}
+                      githubUrl={project.githubUrl}
+                      liveUrl={project.liveUrl}
+                      technologies={project.technologies}
+                      className="h-full"
+                    />
+                  </motion.div>
                 ))
               ) : (
-                <div className="flex items-center justify-center col-span-full text-xl md:text-3xl text-foreground/70 pt-60 text-center">
-                  Projects for selected filter will be added soon.
-                </div>
+                <motion.div
+                  className="col-span-full text-center text-foreground/80 py-10"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={motionConfig.viewport.subtle}
+                  transition={{ duration: motionConfig.sectionDuration }}
+                >
+                  Projects with selected filter will be added soon.
+                </motion.div>
               )}
             </div>
           </div>

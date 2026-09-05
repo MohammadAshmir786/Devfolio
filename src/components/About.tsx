@@ -1,11 +1,21 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, useTransform, useScroll } from "framer-motion";
 import SkillBadge from "./SkillBadge";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import profileImage from "@/assets/images/profile.png";
 import { motionConfig } from "@/lib/motion";
+import bg from "@/assets/images/bg1.png";
+import Earth from "@/components/3d/Earth";
 
 const About: React.FC = () => {
+  const { scrollY } = useScroll();
+  const earthScale = useTransform(scrollY, [500, 900], [0.3, 0.7]);
+  // const earthOpacity = useTransform(scrollY, [950, 1200], [1, 0]);
+  const earthY = useTransform(
+    scrollY,
+    [500, 900],
+    [-100, -70]
+  );
   const skills = [
     // ================================
     // 🚀 Core MERN Stack (Primary Focus)
@@ -66,8 +76,14 @@ const About: React.FC = () => {
   ];
 
   return (
-    <section id="about" className="py-16 md:py-24 relative">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,111,97,0.15),transparent_70%)] -z-10" />
+    <>
+      {/* <motion.div className="h-screen w-full -z-10  sticky top-0 origin-bottom" style={{backgroundImage:`url(${bg})`, backgroundSize: "cover", backgroundPosition: "center", scale: earthScale, opacity: earthOpacity}}>
+      </motion.div> */}
+    <Earth
+      scale={earthScale}
+      y={earthY}
+    />
+    <section id="about" className="py-16 md:py-24">
 
       <div className="container px-4 mx-auto">
         <motion.div
@@ -185,6 +201,7 @@ const About: React.FC = () => {
         </motion.div>
       </div>
     </section>
+    </>
   );
 };
 

@@ -1,5 +1,6 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import IntroScreen from "@/components/IntroScreen.tsx";
+import  scrollSoundSrc from "/scroll.mp3";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -21,6 +22,18 @@ const App = () => {
       setIsAppVisible(true);
     });
   }, []);
+
+  // useEffect(() => {
+  //   const scrollSound = new Audio(scrollSoundSrc);
+
+  //   const onScroll = () => {
+  //     scrollSound.currentTime = 0;
+  //     scrollSound.play().catch(() => {});
+  //   };
+
+  //   window.addEventListener("scroll", onScroll);
+  //   return () => window.removeEventListener("scroll", onScroll);
+  // }, []);
 
   if (showIntro) {
     return <IntroScreen onComplete={handleIntroComplete} />;

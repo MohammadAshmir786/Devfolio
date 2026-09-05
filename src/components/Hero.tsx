@@ -1,12 +1,23 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { useState } from "react";
+import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motionConfig } from "@/lib/motion";
 import BillboardParticles from "./effects/BillboardParticles";
+import bg from "@/assets/images/bg.png";
 
 const Hero: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
+  const { scrollY } = useScroll();
+  const heroOpacity = useTransform(scrollY, [100, 600], [1, 0]);
+  const heroScale = useTransform(scrollY, [0, 600], [1, 0.5]);
+
+  const [active, setActive] = useState(false);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setActive(latest > 1100);
+  });
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -34,8 +45,15 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <>
+    <motion.div className={`${!active ? "sticky top-0 z-0 overflow-hidden" : "relative"}`} style={{opacity:heroOpacity}}>
       <BillboardParticles />
+      <motion.div
+        initial={{ scale: 2 }}
+        animate={{ scale: 1 }}
+        viewport={motionConfig.viewport.section}
+        className="absolute inset-0 bg-cover bg-center -z-10 duration-700 transition-all"
+        style={{ backgroundImage: `url(${bg})` }}
+      />
       <section
         id="hero"
         className="min-h-screen flex items-center relative pt-16"
@@ -48,6 +66,7 @@ const Hero: React.FC = () => {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
+            style={{scale:heroScale}}
           >
             <motion.div
               className="mb-6 relative inline-block"
@@ -128,7 +147,7 @@ const Hero: React.FC = () => {
           <ChevronDown size={32} />
         </motion.a>
       </section>
-    </>
+    </motion.div>
   );
 };
 

@@ -11,7 +11,7 @@ const modules = import.meta.glob<{ default: string }>(
 // production-safe URLs
 const imageUrls: string[] = Object.values(modules).map((mod) => mod.default);
 
-const PARTICLE_COUNT = 90;
+const PARTICLE_COUNT = 100;
 
 function Particles({ imageUrls }: { imageUrls: string[] }) {
   const groupRef = useRef<THREE.Group>(null!);
@@ -20,10 +20,12 @@ function Particles({ imageUrls }: { imageUrls: string[] }) {
   const textures = useLoader(THREE.TextureLoader, imageUrls);
 
   // color handling
-  textures.forEach((texture) => {
-    texture.colorSpace = THREE.SRGBColorSpace;
-    texture.needsUpdate = true;
-  });
+  useMemo(() => {
+    textures.forEach((texture) => {
+      texture.colorSpace = THREE.SRGBColorSpace;
+      texture.needsUpdate = true;
+    });
+  }, [textures]);
 
   const particleGroups = useMemo(() => {
     if (!textures || textures.length === 0) return [];
@@ -68,7 +70,7 @@ function Particles({ imageUrls }: { imageUrls: string[] }) {
           </bufferGeometry>
 
           <pointsMaterial
-            size={80}
+            size={60}
             sizeAttenuation
             map={texture}
             alphaTest={0.5}
@@ -90,7 +92,11 @@ export default function BillboardParticles() {
 
   return (
     <div className="w-full h-screen absolute top-0 left-0 inset-0 z-10">
-      <Canvas camera={{ position: [0, 0, 1000], fov: 55, near: 2, far: 2000 }}>
+      <Canvas 
+        dpr={[1, 1.5]}
+        gl={{ antialias: true, powerPreference: "high-performance" }}
+        camera={{ position: [0, 0, 1000], fov: 55, near: 2, far: 2000 }}
+      >
         <fog attach="fog" args={["#6a6c70", 500, 3000]} />
         <Particles imageUrls={particleImages} />
       </Canvas>

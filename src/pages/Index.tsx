@@ -40,7 +40,7 @@ const Index = () => {
       <ParticleBackground />
       <Navigation />
 
-      <main>
+      <main className="">
         <Hero />
         <About />
         <Projects />

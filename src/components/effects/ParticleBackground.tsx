@@ -8,6 +8,9 @@ interface Particle {
   speedX: number;
   speedY: number;
   color: string;
+  opacity: number;
+  twinkleSpeed: number;
+  twinkleOffset: number;
 }
 
 const ParticleBackground: React.FC = () => {
@@ -32,18 +35,21 @@ const ParticleBackground: React.FC = () => {
     // Initialize particles
     const initParticles = () => {
       particles.current = [];
-      const particleCount = Math.min(Math.floor(window.innerWidth * 0.08), 100);
+      const particleCount = Math.min(Math.floor(window.innerWidth * 0.12), 180);
       
-      const colors = ['#8b5cf6', '#61DAFB', '#FF6F61', '#4DB33D', '#339933'];
+      const colors = ['#ffffff', '#dbeafe', '#bfdbfe', '#e0f2fe', '#c4b5fd'];
       
       for (let i = 0; i < particleCount; i++) {
         particles.current.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          size: Math.random() * 3 + 1,
-          speedX: (Math.random() - 0.5) * 0.6,
-          speedY: (Math.random() - 0.5) * 0.6,
-          color: colors[Math.floor(Math.random() * colors.length)]
+          size: Math.random() * 2 + 0.6,
+          speedX: (Math.random() - 0.5) * 0.25,
+          speedY: (Math.random() - 0.5) * 0.25,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          opacity: Math.random() * 0.45 + 0.35,
+          twinkleSpeed: Math.random() * 2 + 0.5,
+          twinkleOffset: Math.random() * Math.PI * 2
         });
       }
     };
@@ -51,6 +57,15 @@ const ParticleBackground: React.FC = () => {
     // Animate particles
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const time = performance.now() * 0.001;
+
+      const backgroundGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+      backgroundGradient.addColorStop(0, '#020617');
+      backgroundGradient.addColorStop(0.55, '#050a1f');
+      backgroundGradient.addColorStop(1, '#000000');
+      ctx.fillStyle = backgroundGradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
       
       // Update and draw particles
       particles.current.forEach((particle) => {
@@ -66,13 +81,40 @@ const ParticleBackground: React.FC = () => {
         if (particle.y < 0 || particle.y > canvas.height) {
           particle.speedY *= -1;
         }
+
+        const twinkle = 0.7 + Math.sin(time * particle.twinkleSpeed + particle.twinkleOffset) * 0.3;
+        const starSize = particle.size * twinkle;
+        const glowRadius = starSize * 5;
+        const glowOpacity = particle.opacity * 0.45;
+
+        const glow = ctx.createRadialGradient(
+          particle.x,
+          particle.y,
+          0,
+          particle.x,
+          particle.y,
+          glowRadius
+        );
+        glow.addColorStop(0, particle.color);
+        glow.addColorStop(0.25, particle.color);
+        glow.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+        ctx.globalCompositeOperation = 'lighter';
+        ctx.globalAlpha = glowOpacity;
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, glowRadius, 0, Math.PI * 2);
+        ctx.fillStyle = glow;
+        ctx.fill();
         
         // Draw particle
         ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctx.arc(particle.x, particle.y, starSize, 0, Math.PI * 2);
         ctx.fillStyle = particle.color;
-        ctx.globalAlpha = 0.3;
+        ctx.globalAlpha = particle.opacity;
         ctx.fill();
+
+        ctx.globalAlpha = 1;
+        ctx.globalCompositeOperation = 'source-over';
       });
       
       // Connect nearby particles
@@ -83,7 +125,7 @@ const ParticleBackground: React.FC = () => {
     
     // Connect particles with lines based on distance
     const connectParticles = (ctx: CanvasRenderingContext2D) => {
-      const maxDistance = 150;
+      const maxDistance = 120;
       
       for (let i = 0; i < particles.current.length; i++) {
         for (let j = i + 1; j < particles.current.length; j++) {
@@ -98,7 +140,7 @@ const ParticleBackground: React.FC = () => {
             ctx.beginPath();
             ctx.moveTo(particles.current[i].x, particles.current[i].y);
             ctx.lineTo(particles.current[j].x, particles.current[j].y);
-            ctx.strokeStyle = `rgba(139, 92, 246, ${opacity})`;
+            ctx.strokeStyle = `rgba(147, 197, 253, ${opacity})`;
             ctx.lineWidth = 0.5;
             ctx.stroke();
           }

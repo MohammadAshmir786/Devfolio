@@ -23,8 +23,8 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({
   return (
     <motion.div
       className="relative pl-8 pb-12 group"
-      initial={{ opacity: 0, x: 30 }}
-      whileInView={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={motionConfig.viewport.card}
       transition={{
         duration: motionConfig.sectionDuration,
@@ -68,6 +68,22 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({
 
 const Experience: React.FC = () => {
   const experiences = [
+    {
+      title: "Software Engineer",
+      company: "CoderVu InfoTech",
+      period: "03/2026 - Present",
+      description:
+        "Worked closely with a skilled team and participated in projects to gain hands-on experience in advanced AI and ML technologies, contributing to innovative projects and enhancing technical expertise by 25%.",
+      skills: [
+        "MERN",
+        "Next.js",
+        "Nest.js",
+        "Python",
+        "Machine Learning",
+        "Artificial Intelligence",
+        "Team Collaboration",
+      ],
+    },
     {
       title: "AI/ML Intern",
       company: "UnizzTech",
